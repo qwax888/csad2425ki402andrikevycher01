@@ -28,6 +28,9 @@ jobs:
       run: |
         pytest test_1.py -v -s > test_results.txt 2>&1 || true
 
+    - name: Check if test_results.txt exists
+      run: ls -l test_results.txt || echo "test_results.txt not found"
+
     - name: Display test results
       run: cat test_results.txt
 
@@ -42,3 +45,4 @@ jobs:
       with:
         name: build-results
         path: build/
+
