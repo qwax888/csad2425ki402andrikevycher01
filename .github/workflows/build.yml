@@ -25,11 +25,13 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run tests
-      run: |
-        pytest test_1.py -v -s > test_results.txt 2>&1 || true
+      run: pytest test_1.py -v -s > test_results.txt 2>&1 || true
 
     - name: Check if test_results.txt exists
       run: ls -l test_results.txt || echo "test_results.txt not found"
+
+    - name: List files in current directory
+      run: ls -l || echo "Failed to list files"
 
     - name: Display test results
       run: cat test_results.txt
@@ -38,11 +40,16 @@ jobs:
       run: mkdir -p build
 
     - name: Copy test results
-      run: cp test_results.txt build/test_results.txt
+      run: |
+        if [ -f test_results.txt ]; then
+          cp test_results.txt build/test_results.txt
+        else
+          echo "test_results.txt not found"
+          exit 1
+        fi
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: build-results
         path: build/
-
