@@ -31,10 +31,10 @@ jobs:
       run: cat test_results.txt
 
     - name: Create build directory
-      run: mkdir -p build
+      run: mkdir -p dir
 
-    - name: Copy test results to build
-      run: cp ./test_results.txt ./build/test_results.txt || echo "Failed to copy test_results.txt"
+    - name: Copy test results to dir
+      run: cp ./test_results.txt ./dir/test_results.txt || echo "Failed to copy test_results.txt"
 
     - name: List files in build
-      run: ls -l build
+      run: ls -l dir
